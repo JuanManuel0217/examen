@@ -1,0 +1,89 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+struct productos{
+	int cVendida;
+	int pUnitario;
+	int importe;
+};
+struct proveedores{
+	char nombre[30];
+	int telefono;
+	char direccion[40];
+	productos p;
+}proveedor[100],*pproveedor=proveedor;
+
+
+void llenarproveedores();
+void mostrarproveedores();
+int cantidad,i,pos,posc;
+int main () {
+	printf("Ingrese la Cantidad de Proveedores\n");
+	scanf("%d",&cantidad);
+	llenarproveedores();
+	mostrarproveedores();
+	return 0;
+}
+
+void llenarproveedores(){
+	
+	int may=0,men;
+	fflush(stdin);
+	for(i=0;i<cantidad;i++){
+		fflush(stdin);
+		printf("Nombre proveedor: ");
+		fgets((pproveedor+i)->nombre,30,stdin);
+		printf("Telefono proveedor: ");
+		scanf("%d",&((pproveedor+i)->telefono));
+		fflush(stdin);
+		printf("Direccion proveedor: ");
+		fgets((pproveedor+i)->direccion,40,stdin);
+		printf("Cantidad vendida: ");
+		scanf("%d",&((pproveedor+i)->p.cVendida));
+		printf("Precio Unitario: ");
+		scanf("%d",&((pproveedor+i)->p.pUnitario));
+		(pproveedor+i)->p.importe=(pproveedor+i)->p.cVendida*(pproveedor+i)->p.pUnitario;
+		printf("total Importe: %d ",(pproveedor+i)->p.importe);	
+		printf("\n");
+		
+	}
+	system("pause"),
+		system("cls");
+	for(i=0;i<cantidad;i++){
+		if ((pproveedor+i)->p.importe>may){
+			may=(pproveedor+i)->p.importe;
+			pos=i;
+		}
+		
+	}
+	men=may;
+	for(i=0;i<cantidad;i++){
+		if ((pproveedor+i)->p.importe<men){
+			men=(pproveedor+i)->p.importe;
+			posc=i;
+		}
+		
+	}
+	
+}
+void mostrarproveedores(){
+	printf("\n");
+	for(i=0;i<cantidad;i++){
+		printf("\n");
+		printf("Nombre proveedor:%s ",(pproveedor+i)->nombre);
+		printf("Telefono proveedor: %d \n",(pproveedor+i)->telefono);
+		printf("Direccion proveedor:%s \n",(pproveedor+i)->direccion);
+		printf("Cantidad vendida:%d \n",(pproveedor+i)->p.cVendida);
+		printf("Precio Unitario:%d \n",(pproveedor+i)->p.pUnitario);
+		printf("total Importe: %d \n",(pproveedor+i)->p.importe);
+		
+		
+		printf("\n");
+	}
+	printf("proveedor Mayor Consumo:\n%s \n %d \n",(pproveedor+pos)->nombre,(pproveedor+pos)->p.importe);
+	printf("proveedor Menor Consumo:\n%s \n %d \n",(pproveedor+pos)->nombre,(pproveedor+posc)->p.importe);
+	printf("\n");
+}
+
+
+
